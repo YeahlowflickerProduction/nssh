@@ -13,7 +13,9 @@ void ValidateArgument(const char* argv) {
 }
 
 void ListRecords(HostRecord* const records) {
-	printf("\n#\t%-20s %-20s %-20s %-20s\n==================================================================================\n", "Name", "Host", "Username", "Port");
+	LogInfo("Listing records...\n");
+
+	printf("\n #\t%-20s %-20s %-20s %-20s\n==================================================================================\n", "Name", "Host", "Username", "Port");
 	for (int i = 0; i < MAX_RECORD_COUNT; ++i)
 		if (strlen(records[i].servername) > 0)
 			printf("[%d]\t%-20s %-20s %-20s %-20s\n", i, records[i].servername, records[i].host, records[i].default_username, records[i].default_port);
@@ -59,7 +61,7 @@ int AddRecord(HostRecord* const records, const char* servername, const char* hos
 
 	LogInfo("Writing record to database...\n\n");
 	const int dbStatus = AppendToDatabase(record);
-	LogInfo("Successfully added new record.\n\n");
+	LogOK("Successfully added new record.\n\n");
 
 	return dbStatus;
 }
@@ -80,9 +82,12 @@ int UpdateRecord(HostRecord* const records, const char* old_servername, const ch
 		return 1;
 	}
 
-	if (GetRecordByName(records, servername)) {
-		LogError("New server name is already in use. Aborting...\n\n");
-		return 1;
+	const HostRecord* existingCheckRecord = GetRecordByName(records, servername);
+	if (existingCheckRecord != NULL) {
+		if (strncmp(existingCheckRecord->servername, old_servername, MAX_SERVERNAME_LENGTH) != 0) {
+			LogError("New server name is already in use. Aborting...\n\n");
+			return 1;
+		}
 	}
 
 	LogInfo("Updating record values...\n\n");
@@ -94,7 +99,7 @@ int UpdateRecord(HostRecord* const records, const char* old_servername, const ch
 	LogInfo("Writing to database...\n\n");
 	WriteDatabaseToFile(records);
 
-	LogInfo("Update operation complete.\n\n");
+	LogOK("Record updated successfully.\n\n");
 	return 0;
 }
 
@@ -117,7 +122,7 @@ int DeleteRecord(HostRecord* const records, const char* servername) {
 	LogInfo("Deleting record...\n\n");
 	WriteDatabaseToFile(records);
 
-	LogInfo("Delete operation complete.\n\n");
+	LogOK("Delete operation complete.\n\n");
 
 	return 0;
 }
@@ -141,6 +146,9 @@ void LogInfo(const char* msg) {
 }
 void LogError(const char* msg) {
 	printf("\n\e[41m[ERROR] \e[0m  %s%s%s", msg, ANSI_COLOR_RED, ANSI_COLOR_RESET);
+}
+void LogOK(const char* msg) {
+	printf("\n\e[42m[OK]    \e[0m  %s%s%s", msg, ANSI_COLOR_GREEN, ANSI_COLOR_RESET);
 }
 
 void Exit() {

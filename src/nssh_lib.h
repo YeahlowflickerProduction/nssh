@@ -30,3 +30,5 @@ void PrintCyan(const char* msg);
 void LogInfo(const char* msg);
 
 void LogError(const char* msg);
+
+void LogOK(const char* msg);

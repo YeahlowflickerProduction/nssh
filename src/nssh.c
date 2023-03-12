@@ -21,7 +21,7 @@ int main(int argc, char** argv) {
 	PrintCyan("\nNSSH by Yeahlowflicker.\n");
 
 	if (!argv[1]) {
-		printf("Commands: [\n    nssh <server_name> [username] [port]\n    nssh list\n    nssh add <server_name> <host>\n    nssh update <old_server_name> <server_name> <host>\n    nssh delete <server_name>\n]\n");
+		printf("\nCommands: [\n    nssh [server_name] <username> <port>\n    nssh list/ls\n    nssh add [server_name] [host]\n    nssh update [old_server_name] [server_name] [host]\n    nssh remove/rm [server_name]\n]\n");
 		Exit();
 	}
 
@@ -50,7 +50,7 @@ int main(int argc, char** argv) {
 		Exit();
 	}
 
-	if (strncmp(argv[1], "remove", 6) == 0) {
+	if (strncmp(argv[1], "remove", 6) == 0 || strncmp(argv[1], "rm", 6) == 0) {
 		ValidateArgumentCount(argv, 2);
 		DeleteRecord(records, argv[2]);
 		Exit();
