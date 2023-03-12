@@ -10,7 +10,7 @@ HostRecord* LoadDatabase() {
 
     int i = 0;
 
-	while (fscanf(file, "%s\t%s\t%s", data[i].servername, data[i].host, data[i].default_username) != EOF)
+	while (fscanf(file, "%s %s %s %s", data[i].servername, data[i].host, data[i].default_username, data[i].default_port) != EOF)
         i++;
 
 	return data;
@@ -19,7 +19,7 @@ HostRecord* LoadDatabase() {
 int AppendToDatabase(const HostRecord* const record) {
     FILE* file = fopen(DB_DIR, "a+");
 	assert(file != NULL);
-    fprintf(file, "%s\t%s\t%s\n", record->servername, record->host, record->default_username);
+    fprintf(file, "%s %s %s %s\n", record->servername, record->host, record->default_username, record->default_port);
     return 0;
 }
 
@@ -29,7 +29,7 @@ int WriteDatabaseToFile(const HostRecord* const records) {
 
     for (int i = 0; i < MAX_RECORD_COUNT; ++i) {
         if (records[i].servername == "") break;
-        fprintf(file, "%s\t%s\t%s\n", records[i].servername, records[i].host, records[i].default_username);
+        fprintf(file, "%s %s %s %s\n", records[i].servername, records[i].host, records[i].default_username, records[i].default_port);
     }
 
     return 0;
