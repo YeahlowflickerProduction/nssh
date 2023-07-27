@@ -1,6 +1,6 @@
-# NSSH by Yeahlowflicker Production
+# nssh
 
-`nssh` is a command-line tool built for Linux systems. It aims to simply the SSH workflow by implementing a simple storage.
+`nssh` is a command-line tool built for Linux systems. It aims to simply the SSH workflow by implementing a simple storage. It is developed and maintained by Yeahlowflicker Production.
 
 The tool allows users to save their frequently used SSH info in a persistent storage. They do not have to memorize server info like hostnames, usernames and ports, etc. Instead, they can simply type in the record name and this tool will construct and execute the corresponding SSH command.
 
@@ -16,23 +16,23 @@ Data is stored in the file `.nssh_db` located at the user's home directory. It d
 
 [Required args] <Optional args>
 
-### Connecting to a Server
-nssh [server_name] -u <override_username> -p <override_port>
+#### Connecting to a Server
+`nssh [server_name] -u <override_username> -p <override_port>`
 
-### Listing All Records
-nssh -L
+#### Listing All Records
+`nssh -L`
 
-### Adding a New Record
-nssh -A -n [server_name] -h [host (e.g. ip or domain)] -u [default_username] -p [default_port]
+#### Adding a New Record
+`nssh -A -n [server_name] -h [host (e.g. ip or domain)] -u [default_username] -p [default_port]`
 
-### Updating an Existing Record
-nssh -U -i [index] -n [server_name] -h [host (e.g. ip or domain)] -u [default_username] -p [default_port]
+#### Updating an Existing Record
+`nssh -U -i [index] -n [server_name] -h [host (e.g. ip or domain)] -u [default_username] -p [default_port]``
 
-### Deleting an Existing Record
-nssh -D -i [index]
+#### Deleting an Existing Record
+`nssh -D -i [index]`
 
-### Show Help
-nssh -h
+#### Show Help
+`nssh -h`
 
 
 ## Quick Installation
