@@ -16,9 +16,9 @@ char* ConstructSSHCommand(const HostRecord* const record, const char* ovr_userna
 
 int AddRecord(HostRecord* const records, const char* servername, const char* host, const char* default_username, const char* default_port);
 
-int UpdateRecord(HostRecord* const records, const char* old_servername, const char* servername, const char* host, const char* default_username, const char* default_port);
+int UpdateRecord(HostRecord* const records, const int index, const char* servername, const char* host, const char* default_username, const char* default_port);
 
-int DeleteRecord(HostRecord* const records, const char* servername);
+int DeleteRecord(HostRecord* const records, const int index);
 
 void Exit();
 

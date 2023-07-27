@@ -66,8 +66,8 @@ int AddRecord(HostRecord* const records, const char* servername, const char* hos
 	return dbStatus;
 }
 
-int UpdateRecord(HostRecord* const records, const char* old_servername, const char* servername, const char* host, const char* default_username, const char* default_port) {
-	ValidateArgument(old_servername);
+int UpdateRecord(HostRecord* const records, const int index, const char* servername, const char* host, const char* default_username, const char* default_port) {
+	// ValidateArgument(index);
 	ValidateArgument(servername);
 	ValidateArgument(host);
 	ValidateArgument(default_username);
@@ -75,7 +75,7 @@ int UpdateRecord(HostRecord* const records, const char* old_servername, const ch
 
 	LogInfo("Retrieving record...\n\n");
 
-	HostRecord* const record = GetRecordByName(records, old_servername);
+	HostRecord* const record = &(records[index]);
 
 	if (!record) {
 		LogError("Record cannot be found. Aborting...\n\n");
@@ -84,7 +84,7 @@ int UpdateRecord(HostRecord* const records, const char* old_servername, const ch
 
 	const HostRecord* existingCheckRecord = GetRecordByName(records, servername);
 	if (existingCheckRecord != NULL) {
-		if (strncmp(existingCheckRecord->servername, old_servername, MAX_SERVERNAME_LENGTH) != 0) {
+		if (strncmp(existingCheckRecord->servername, record->servername, MAX_SERVERNAME_LENGTH) != 0) {
 			LogError("New server name is already in use. Aborting...\n\n");
 			return 1;
 		}
@@ -103,11 +103,12 @@ int UpdateRecord(HostRecord* const records, const char* old_servername, const ch
 	return 0;
 }
 
-int DeleteRecord(HostRecord* const records, const char* servername) {
-	ValidateArgument(servername);
+int DeleteRecord(HostRecord* const records, const int index) {
+	// ValidateArgument(index);
 
 	LogInfo("Retrieving record...\n\n");
-	HostRecord* const record = GetRecordByName(records, servername);
+	HostRecord* const record = &(records[index]);
+
 	if (!record) {
 		LogError("Record could not be found.\n\n");
 		return 1;
