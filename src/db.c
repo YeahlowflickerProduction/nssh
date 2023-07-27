@@ -6,12 +6,19 @@
 HostRecord* LoadDatabase() {
     HostRecord* data = (HostRecord*)calloc(MAX_RECORD_COUNT, sizeof(HostRecord));
     FILE* file = fopen(DB_DIR, "r");
+
+    //  If file data does not exist, create one
+    if (file == NULL)
+        file = fopen(DB_DIR, "w");
+
 	assert(file != NULL);
 
     int i = 0;
 
 	while (fscanf(file, "%s %s %s %s", data[i].servername, data[i].host, data[i].default_username, data[i].default_port) != EOF)
         i++;
+
+    fclose(file);
 
 	return data;
 }

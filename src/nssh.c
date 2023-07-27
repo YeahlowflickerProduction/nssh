@@ -16,7 +16,7 @@ void ValidateArgumentCount(char** const argv, const int count) {
 }
 
 void ShowHelp() {
-	printf("\nUsage: [\n    Connect: nssh [server_name] -p <username> -p <port>\n\n    List: nssh -L\n\n    Add: nssh -A -n [server_name] -h [host] \n            -u [default_username] -p [default_port]\n\n    Update: nssh -U -i [index] -n [server_name] -h [host]\n             -u [default_username] -p [default_port]\n\n    Delete: nssh -D -i [index]\n]\n");
+	printf("\nUsage: [\n    Connect: nssh [server_name] -p <username> -p <port>\n\n    List: nssh -L\n\n    Add: nssh -A -n [server_name] -h [host] \n            -u [default_username] -p [default_port]\n\n    Update: nssh -U -i <index> -n <server_name> -h <host>\n             -u <default_username> -p <default_port>\n\n    Delete: nssh -D -i [index]\n]\n");
 }
 
 int main(int argc, char** argv) {
@@ -28,6 +28,8 @@ int main(int argc, char** argv) {
 
 	char opt;
 	char* mode = argv[1];
+
+
 
 
 	//	Show help
@@ -49,7 +51,7 @@ int main(int argc, char** argv) {
 		char* default_username = NULL;
 		char* default_port = NULL;
 
-		while ((opt = getopt(argc, (char **)argv, "n:h:u:p:")) != -1) {
+		while ((opt = getopt(argc, (char **)argv, "An:h:u:p:")) != -1) {
 			switch (opt) {
 				case 'n': server_name = optarg; break;
 				case 'h': host = optarg; break;
@@ -76,7 +78,7 @@ int main(int argc, char** argv) {
 		char* default_username = NULL;
 		char* default_port = NULL;
 
-		while ((opt = getopt(argc, (char **)argv, "i:n:h:u:p:")) != -1) {
+		while ((opt = getopt(argc, (char **)argv, "Ui:n:h:u:p:")) != -1) {
 			switch (opt) {
 				case 'i': index = atoi(optarg); break;
 				case 'n': server_name = optarg; break;
@@ -86,8 +88,8 @@ int main(int argc, char** argv) {
 			}
 		}
 
-		if (index == -1 || !server_name || !host || !default_username || !default_port) {
-			LogError("Insufficient arguments. Program will be exited.\n\n");
+		if (index == -1) {
+			LogError("Invalid record index. Program will be exited.\n\n");
 			Exit();
 		}
 
@@ -100,7 +102,7 @@ int main(int argc, char** argv) {
 	else if (strcmp(mode, "-D") == 0) {
 		int index = -1;
 
-		while ((opt = getopt(argc, (char **)argv, "i:n:h:u:p:")) != -1) {
+		while ((opt = getopt(argc, (char **)argv, "Di:")) != -1) {
 			switch (opt) {
 				case 'i': index = atoi(optarg); break;
 			}
@@ -119,7 +121,7 @@ int main(int argc, char** argv) {
 	else if (argv[1]) {
 		const char* servername = argv[1];
 		const char* override_username = "";
-		const char* override_port =  "";
+		const char* override_port = "";
 
 		while ((opt = getopt(argc, (char **)argv, "u:p:")) != -1) {
 			switch (opt) {
@@ -153,8 +155,8 @@ int main(int argc, char** argv) {
 		printf("\n\n\n==== Connection Info ====\n");
 		printf("· Server Name: %s\n", record->servername);
 		printf("· Host: %s\n", record->host);
-		printf("· Username: %s\n", override_username ? override_username : record->default_username);
-		printf("· Port: %s\n\n", override_port ? override_port : record->default_port);
+		printf("· Username: %s\n", strlen(override_username) > 0 ? override_username : record->default_username);
+		printf("· Port: %s\n\n", strlen(override_port) > 0 ? override_port : record->default_port);
 
 
 		// Construct SSH Command

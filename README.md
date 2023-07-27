@@ -26,7 +26,7 @@ Data is stored in the file `.nssh_db` located at the user's home directory. It d
 `nssh -A -n [server_name] -h [host (e.g. ip or domain)] -u [default_username] -p [default_port]`
 
 #### Updating an Existing Record
-`nssh -U -i [index] -n [server_name] -h [host (e.g. ip or domain)] -u [default_username] -p [default_port]``
+`nssh -U -i [index] -n <server_name> -h <host (e.g. ip or domain)> -u <default_username> -p <default_port>`
 
 #### Deleting an Existing Record
 `nssh -D -i [index]`
