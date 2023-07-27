@@ -15,10 +15,10 @@ void ValidateArgument(const char* argv) {
 void ListRecords(HostRecord* const records) {
 	LogInfo("Listing records...\n");
 
-	printf("\n #\t%-20s %-20s %-20s %-20s\n==================================================================================\n", "Name", "Host", "Username", "Port");
+	printf("\n #\t%-16s %-20s %-10s %-16s\n===================================================================\n", "Name", "Host", "Username", "Port");
 	for (int i = 0; i < MAX_RECORD_COUNT; ++i)
 		if (strlen(records[i].servername) > 0)
-			printf("[%d]\t%-20s %-20s %-20s %-20s\n", i, records[i].servername, records[i].host, records[i].default_username, records[i].default_port);
+			printf("[%d]\t%-16s %-20s %-10s %-16s\n", i, records[i].servername, records[i].host, records[i].default_username, records[i].default_port);
 }
 
 HostRecord* GetRecordByName(HostRecord* const records, const char* servername) {

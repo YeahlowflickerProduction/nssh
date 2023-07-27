@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 #define DB_DIR "/home/yeahlowflicker/.nssh_db"
-#define MAX_RECORD_COUNT 10
+#define MAX_RECORD_COUNT 1000
 #define MAX_SERVERNAME_LENGTH 64
 #define MAX_HOST_LENGTH 256
 #define MAX_USERNAME_LENGTH 64

@@ -21,7 +21,7 @@ int main(int argc, char** argv) {
 	PrintCyan("\nNSSH by Yeahlowflicker.\n");
 
 	if (!argv[1]) {
-		printf("\nCommands: [\n    nssh [server_name] <username> <port>\n    nssh list/ls\n    nssh add [server_name] [host]\n    nssh update [old_server_name] [server_name] [host]\n    nssh remove/rm [server_name]\n]\n");
+		printf("\nCommands: [\n    nssh [server_name] <username> <port>\n    nssh list/ls\n    nssh add [server_name] [host] [default_username] [port]\n    nssh update [old_server_name] [server_name] [host] [default_username] [port]\n    nssh remove/rm [server_name]\n]\n");
 		Exit();
 	}
 
