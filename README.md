@@ -8,7 +8,7 @@ Data is stored in the file `.nssh_db` located at the user's home directory. It d
 
 
 ## Features
-- Persistent server info storage
+- Persistent local storage of server info
 - SSH command construction
 - SSH command execution
 
